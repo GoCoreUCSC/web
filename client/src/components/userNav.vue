@@ -12,6 +12,7 @@
    
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
+        <a href="./HomePage.vue"><button type="button" class="newbtn2 btn btn-primary" >LOG OUT</button></a>
         <a class="nav-link active" href="/HomePage.vue">Hello, Denuka!</a> <!--Photo by Andrea Piacquadio: https://www.pexels.com/photo/man-standing-near-building-white-black-turtleneck-shirt-874158/-->
       </li>
        </ul>

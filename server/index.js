@@ -43,11 +43,17 @@ app.use('/api/admin_dashboard_guide', admin_dashboard_guide);
 const admin_dashboard_hotel = require('./routes/api/admin_dashboard_Hotel');
 app.use('/api/admin_dashboard_hotel', admin_dashboard_hotel);
 
+const admin_dashboard_tourist = require('./routes/api/admin_dashboard_Tourist');
+app.use('/api/admin_dashboard_tourist', admin_dashboard_tourist);
+
 const guide_added_plans = require('./routes/api/guide_added_Plans');
 app.use('/api/guide_added_plans', guide_added_plans);
 
 const guide_view_plan = require('./routes/api/guide_view_Plan');
 app.use('/api/guide_view_plan', guide_view_plan);
+
+const guide_view_tourPlan = require('./routes/api/guide_view_TourPlan');
+app.use('/api/guide_view_tourPlan', guide_view_tourPlan);
 
 const guide_view_prof = require('./routes/api/guide_view_Prof');
 app.use('/api/guide_view_prof', guide_view_prof);
@@ -57,6 +63,9 @@ app.use('/api/guide_profile_load', guide_profile_load);
 
 const guide_login_home = require('./routes/api/guide_login_Home');
 app.use('/api/guide_login_home', guide_login_home);
+
+const admin_home = require('./routes/api/admin_Home');
+app.use('/api/admin_home', admin_home);
 
 
 const port = process.env.PORT || 5000;

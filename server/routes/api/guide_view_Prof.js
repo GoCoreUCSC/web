@@ -4,7 +4,7 @@ const router = express.Router();
 
  router.get('/',async(req,res) => {
     const users = await loadPostsCollection();
-    res.send(await users.find({user_role:"guide"}).toArray());
+    res.send(await users.find({user_role:"guide", _id: mongodb.ObjectId('63576a36baf357fccee87552')}).toArray());
  });
 
  router.delete('/', async (req,res)=>{

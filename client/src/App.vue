@@ -2,10 +2,19 @@
 
   <router-view > </router-view>
   <router-link> </router-link>
-
+  
+ 
 </template>
 
+<script>
+export default {
+  name: 'App',
+  components: {
+  },
 
+
+}
+</script>
 
 <style>
 #app {

@@ -3,10 +3,10 @@
   
 
     <SidebarLink to="./HomePage.vue" icon="fa-solid fa-house">Home</SidebarLink> <br>
-    <SidebarLink to="./dashboardPage.vue" icon="fa-solid fa-chalkboard-user">Dashboard</SidebarLink><br> 
+    <SidebarLink to="./dashboardPageTest.vue" icon="fa-solid fa-chalkboard-user">Dashboard</SidebarLink><br> 
     <SidebarLink to="./profilePage.vue" icon="fa-solid fa-user">Profile</SidebarLink><br>
-    <SidebarLink to="#" icon="fa-solid fa-bell">Notification</SidebarLink><br>
-    <SidebarLink to="#" icon="fa-solid fa-gear">Settings</SidebarLink><br>
+    <!-- <SidebarLink to="#" icon="fa-solid fa-bell">Notification</SidebarLink><br>
+    <SidebarLink to="#" icon="fa-solid fa-gear">Settings</SidebarLink><br> -->
  
 
     <span

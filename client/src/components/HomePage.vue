@@ -13,9 +13,10 @@
       </div>
       <p id="heading1"> Chase the Adventure </p>
       <div class="p-5">
-        <a href="./LogIn.vue" style="color:white"><button type="button" class="btn newbtn btn-primary btn-lg">Log In</button></a>
+        <a href="./LogIn.vue" style="color:white"><button type="button" class="btn newbtn btn-primary btn-lg">Sign In</button></a>
+        <a href="./SignUp.vue" style="color:white"><button type="button" class="btn newbtn btn-primary btn-lg">Sign Up</button></a>
       </div>
-  
+      
   </div>
 
   <div class="card-deck col-sm  p-5">
@@ -87,10 +88,6 @@ export default{
     -moz-background-size:cover;
     -o-background-size:cover;
     background-size: cover;
-     
-
-    
-
 };
 
 .maincontent::before {
@@ -110,11 +107,13 @@ export default{
   font-size: 5em;
   color: #085B7F;
 }
+
 #text1{
   position: relative;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: black;
- font-size: 1.5em;
+  font-size: 1.5em;
+  margin-left: 200px;
 }
 
 .cardstyle{
@@ -132,6 +131,16 @@ export default{
   border-radius: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  margin-right: 30px;
+}
+.newbtn{
+  background-color: #e79e03;
+  border-color: #ead767;
+  border-style: solid;
+  border-radius: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-right: 30px;
 }
 
 .newbtn:hover{

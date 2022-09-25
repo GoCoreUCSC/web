@@ -3,8 +3,8 @@ const mongodb = require('mongodb');
 const router = express.Router();
 
  router.get('/',async(req,res) => {
-    const posts = await loadPostsCollection();
-    res.send(await posts.find({}).toArray());
+    const guide_add_plan = await loadPostsCollection();
+    res.send(await guide_add_plan.find({}).toArray());
  });
 
  async function loadPostsCollection(){
@@ -13,7 +13,7 @@ const router = express.Router();
          useNewUrlParser: true
      })
 
-    return client.db('gocoredb').collection('posts');
+    return client.db('gocoredb').collection('guide_add_plan');
  }
 
 module.exports = router;

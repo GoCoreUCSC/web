@@ -13,6 +13,19 @@ class guide_added_Plan{
                 resolve(
                     data.map(post =>({
                         ...post,
+                        Title: post.Title,
+                        Duration: post.Duration,
+                        Activities: post.Activities,
+                        startingCity: post.startingCity,
+                        FdestName: post.FdestName,
+                        Ftransport: post.Ftransport,
+                        Fstay: post.Fstay,
+                        destination: {
+                            destName: post.destName,
+                            transport: post.transport,
+                            stay: post.stay,
+                        },
+                        
                     }))
                 );
             }catch(err){

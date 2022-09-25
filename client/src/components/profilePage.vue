@@ -16,17 +16,24 @@
                     <div class="row ml-1 m-r-0">
                         <div class="col-sm-4 bg-clr user-profile">
                             <div class="card-block text-center text-white">
-                                <div class="m-b-25">
-                                    <img src="../assets/profile.jpg" class="img-radius" alt="User-Profile-Image">
+                                <div class="m-b-25"
+                                v-for="(post, index) in posts"
+                                v-bind:item="post"
+                                v-bind:index="index"
+                                v-bind:key="post.id"
+                                >
+                                    <!-- <img src="../assets/Denuka.jpg" class="img-radius" alt="User-Profile-Image"> -->
+                                    <div v-if="post.image">
+                                    <img class="img-radius" v-bind:src="post.image" /><br />
+                                    
+                                    </div>
                                 </div>
-                                <h6 class="f-w-600">Denuka Perera</h6>
-                                <p>Tour Guide</p>
-                                <i class=" fas fa-edit m-t-10 f-16"></i>
+                                <h1><p>Tour Guide</p></h1>
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"> Personal Information</h6>
+                                <h2 class="m-b-20 p-b-5 b-b-default f-w-600"> Personal Information</h2>
                                 <div class="row">
 
                                 <div class="post"
@@ -36,9 +43,9 @@
                                 v-bind:key="post.id">
                                 
                                     <div class="col-sm-4">
-                                        <p class="m-b-10 f-w-600" >First name</p>
+                                        <p class="m-b-10 f-w-600" >Full Name</p>
                                         <h6 class="text-muted f-w-400">
-                                            {{post.guidefname}}
+                                            {{post.name}}
                                             
                                             </h6>
                                     </div>
@@ -49,40 +56,35 @@
                                     <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">NIC</p>
                                         <h6 class="text-muted f-w-400">
-                                             {{post.guidenic}}
+                                             {{post.nic}}
                                         </h6>
                                     </div>
                                 
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Contact Information</h6>
+                                <h2 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Contact Information</h2>
                                 <div class="row">
 
                                     <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">Email</p>
                                         <h6 class="text-muted f-w-400">
-                                            {{post.guideemail}}
+                                            {{post.email}}
                                         </h6>
                                     </div>
                                     <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">Contact Number</p>
                                         <h6 class="text-muted f-w-400">
-                                            {{post.guidephone}}
+                                            {{post.contact_no}}
                                         </h6>
                                     </div>
                                     <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">Social Media</p>
                                         <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                                            <li><a href="https://www.facebook.com/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
                                             </ul>
                                     </div>
                                 </div>
                                 <!-- <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">User Account</h6> -->
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Username</p>
-                                        <h6 class="text-muted f-w-400">
-                                            {{post.guideuname}}
-                                        </h6>
-                                    </div>
+                                    
                                     <!-- <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Password </p>
                                         <h6 class="text-muted f-w-400">xxxxxxxxxx</h6>
@@ -125,6 +127,23 @@
     import { collapsed, toggleSidebar } from './state'
     import usernav from "./userNav.vue"
     import guide_view_prof from "../guide_view_prof"
+    import {getStorage,ref as rt,uploadBytes,getDownloadURL,} from "firebase/storage";
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8P8DO81a_NbOU5qxL-2Jst1i6HoJwgT4",
+  authDomain: "gocore-6873c.firebaseapp.com",
+  projectId: "gocore-6873c",
+  storageBucket: "gocore-6873c.appspot.com",
+  messagingSenderId: "1087670929534",
+  appId: "1:1087670929534:web:9bd2c04e15dacd10ac302f",
+  measurementId: "G-GT1883S0BG",
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const storage = getStorage();
+console.log(storage);
 
     export default{
 
@@ -140,11 +159,10 @@
       posts: [],
       error: '',
       user_role: "guide",
-      guidefname: "",
-      guidenic: "",
-      guideemail: "",
-      guidephone: "",
-      guideuname: "",
+      name: "",
+      nic: "",
+      email: "",
+      contact_no: ""
 
     }
   },
@@ -160,9 +178,27 @@
     async deleteAccount(id){
       await guide_view_prof.deletePost(id);
     },
-    // async updateAccount(){
-    //   await guide_update_prof.updateAccount();
-    // }
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.picture = null;
+      this.imageData = event.target.files[0];
+    },
+
+    onUpload() {
+      this.picture = null;
+
+      const storageRef = rt(storage, `${this.imageData.name}`);
+
+      // 'file' comes from the Blob or File API
+      return uploadBytes(storageRef, this.imageData).then((snapshot) => {
+        console.log("Uploaded Successfully!");
+        return getDownloadURL(snapshot.ref).then((url) => {
+          this.picture = url;
+          console.log("rrttt", url);
+          return url;
+        });
+      });
+    },
   },
 
   setup(){
@@ -231,8 +267,8 @@ body {
 
 .img-radius {
     border-radius: 5px;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 300px;
+    max-height: 500px;
 }
 
 .newbtn{

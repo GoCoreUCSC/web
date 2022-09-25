@@ -14,14 +14,19 @@
         <div>
           <h3>Sign In</h3>
         </div>
-        <form action="./dashboardPage.vue?name" class=" row p-4">
+         <div v-if="error" class="error">
+              {{error.message}}
+            </div>
+            
+        <form @submit.prevent="pressed" action="./dashboardPage.vue?name" class=" row p-4">
           <div class="col-sm">
-            <label for="name">User Name</label><br>
-            <input type="text" v-model="name" required placeholder="Enter Username"
+
+            <label for="email">Email</label><br>
+            <input type="email" v-model="email" required placeholder="Enter email"
               class="inputstyle">
             <br><br>
-            <label for="text">Password</label><br>
-            <input type="text" v-model="password" placeholder="Enter Password" class="inputstyle"><br><br>
+            <label for="password">Password</label><br>
+            <input type="password" v-model="password" placeholder="Enter Password" class="inputstyle"><br><br>
             
           </div>
           
@@ -45,17 +50,91 @@
 <script>
 // import axios from 'axios';
 import guide_login_home from '../guide_login_home';
+// import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8P8DO81a_NbOU5qxL-2Jst1i6HoJwgT4",
+  authDomain: "gocore-6873c.firebaseapp.com",
+  projectId: "gocore-6873c",
+  storageBucket: "gocore-6873c.appspot.com",
+  messagingSenderId: "1087670929534",
+  appId: "1:1087670929534:web:9bd2c04e15dacd10ac302f",
+  measurementId: "G-GT1883S0BG",
+};
+
+// Initialize Firebase
+firebase(firebaseConfig);
+
+const storage = getStorage();
+console.log(storage);
+
 
   export default {
     name: 'SignIn',
+    data(){
+      return{
+        steps: {},
+        step: 1,
+
+        email: "",
+        password: "",
+        error: '',
+        
+      imageData: null,
+      picture: null,
+      uploadValue: 0,
+      }
+    },
+
   methods:{
+    async pressed(){
+      try{
+        const user = firebase.auth().createUserWithEmailAndPassword(
+        this.email,
+        this.password
+      )
+      console.log(user)
+      this.$router.replace({name: "secret"});
+      }catch(err){
+        console.log(err)
+      }
+      
+    },
+
     async guide_login(){
       await guide_login_home.insert_guide_login(
         this.fName,this.NIC,this.phnNo,this.password,this.lName,
         this.Address,this.confPass);
-    }
-  }
-}
+    },
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.picture = null;
+      this.imageData = event.target.files[0];
+    },
+
+    onUpload() {
+      this.picture = null;
+
+      const storageRef = ref(storage, `${this.imageData.name}`);
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, this.imageData).then((snapshot) => {
+        console.log("Uploaded Successfully!");
+        getDownloadURL(snapshot.ref).then((url) => {
+          this.picture = url;
+          console.log(url);
+        });
+      });
+
+      //const storageRef =  ref(``).put(this.imageData);
+
+      
+    },
+  },
+};
 </script>
 
 <style scoped>

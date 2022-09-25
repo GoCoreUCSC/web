@@ -7,7 +7,7 @@
     <div id="content">
         <div class="row">
             <div class="col-sm">
-                <img src="../assets/WithSlogan.png" alt="GoCore Logo">
+                <img src="../assets/driver.jpg" alt="GoCore Logo">
             </div>
             <div class="col-sm">
                 <section class="">
@@ -54,9 +54,10 @@
             <label for="Vinsurance">Insurance Type</label><br>
 						<input class="inputstyle" type="text" v-model="vehicleinsuarance"  placeholder="Insurance Type" required /><br><br>
             <label for="Vdocs">Upload documents for verification</label><br>
-						<!-- <input class="inputstyle" type="file" placeholder="Upload Document" required /><br><br> -->
+            <p><input class="inputstyle" type="file" @change="previewPDF" accept="application/pdf"></p>
+
 						<div class="fom-group">
-							<button type="" class="btn btn-lg newbtn btn-primary" @click.prevent="prev()">Previous</button>
+							<button type="" class="btn btn-lg newbtn btn-primary" @click.prevent="prev(); onUpload();">Previous</button>
 							<button type="submit" class="btn btn-lg newbtn btn-primary">Next</button>
 						</div>
 				</form>
@@ -85,12 +86,13 @@
             <label for="driverDocs">Upload documents for verification</label><br>
 						<!-- <input class="inputstyle" type="file"  placeholder="Upload the document" required /><br><br> -->
             <div>
-                  <p><input type="checkbox">I have agreed to the terms and privacy policy</p>
+                  <p><input class="inputstyle" type="file" @change="previewPDF" accept="application/pdf"></p>
+              
                 </div>
 
 					<div class="fom-group">
 							<button type="" class="btn btn-lg newbtn btn-primary" @click.prevent="prev()">Previous</button>
-							<button type="submit" class="btn btn-lg newbtn btn-primary" v-on:click="cabAdd">Sign Up</button>
+							<button type="submit" class="btn btn-lg newbtn btn-primary" v-on:click="cabAdd(); onUpload();">Sign Up</button>
 						</div>
 				</form>
 			</section>
@@ -115,9 +117,29 @@
 import navbar from "./topNavbar.vue"
 import footerbar from "./footerBar.vue"
 import cab_add_sys from '../cab_add_sys';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
+// import { file } from "@babel/types";
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8P8DO81a_NbOU5qxL-2Jst1i6HoJwgT4",
+  authDomain: "gocore-6873c.firebaseapp.com",
+  projectId: "gocore-6873c",
+  storageBucket: "gocore-6873c.appspot.com",
+  messagingSenderId: "1087670929534",
+  appId: "1:1087670929534:web:9bd2c04e15dacd10ac302f",
+  measurementId: "G-GT1883S0BG",
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const storage = getStorage();
+console.log(storage);
 export default{
+
   // eslint-disable-next-line vue/multi-word-component-names
+
   name:"cabRegister",
   components:{
     navbar,
@@ -128,37 +150,15 @@ export default{
       steps: {},
       step: 1,
       
-        ownerName: "",
-        ownerphoneNumber: "",
-        owneraddress: "",
-        ownercity: "",
-        ownereMail: "",
-		ownernic: "",
+        ownerName: "",ownerphoneNumber: "",owneraddress: "",ownercity: "",ownereMail: "",ownernic: "",
 
-        vehicletype: "",
-        vehicleregno: "",
-        vehicleregYear: "",
-        vehiclechassis: "",
-        vehicleinsuarance: "",
-        // document: "",
+        vehicletype: "",vehicleregno: "",vehicleregYear: "",vehiclechassis: "",vehicleinsuarance: "",
       
-        driverName: "",
-        driverbirthdate: "",
-        driverphoneNumber: "",
-        driveraddress: "",
-        drivereMail: "",
-        drivernic: "",
-        driverlicense: "",
-        // document:"",
-      
+        driverName: "",driverbirthdate: "",driverphoneNumber: "",driveraddress: "",drivereMail: "",drivernic: "",driverlicense: "",
      
-        // h_name: "",
-        // regNo: "",
-        // city: "",
-        // web: "",
-        // address: "",
-        // phone: ""
-     
+        imageData: null,
+        picture: null,
+        uploadValue: 0
     };
   },
   methods: {
@@ -197,8 +197,31 @@ export default{
 
         );
 
-    }
+    },
+    previewPDF(event){
+    this.uploadValue=0;
+    this.picture=null;
+    this.imageData = event.target.files[0];
+   
+  },
 
+   onUpload() {
+      this.picture = null;
+
+      const storageRef = ref(storage, `${this.imageData.name}`);
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, this.imageData).then((snapshot) => {
+        console.log("Uploaded Successfully!");
+        getDownloadURL(snapshot.ref).then((url) => {
+          this.picture = url;
+          console.log(url);
+        });
+      });
+
+
+      
+    },
   }
 
 

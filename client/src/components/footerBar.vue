@@ -10,23 +10,27 @@
         <h5 class="text-uppercase">Social Media</h5> 
 
         <p>
-          <a href="#" class="fa fa-facebook"></a>
-
-          <a href="#" class="fa fa-linkedin"></a>
-
-          <a href="#" class="fa fa-instagram"></a>
+          <MDBBtn tag="a" color="primary" href="#!" floating size="sm" style="background-color: rgb(59, 89, 152); margin-right: 10px;">
+            <MDBIcon iconStyle="fab" icon="facebook-f"></MDBIcon>
+          </MDBBtn>
+          <MDBBtn tag="a" color="primary" href="#!" floating size="sm" style="background-color: rgb(172, 43, 172); margin-right: 10px;">
+            <MDBIcon iconStyle="fab" icon="instagram"></MDBIcon>
+          </MDBBtn>
+          <MDBBtn tag="a" color="primary" href="#!" floating size="sm" style="background-color: rgb(0, 130, 202); margin-right: 10px;">
+            <MDBIcon iconStyle="fab" icon="linkedin-in"></MDBIcon>
+          </MDBBtn>
         </p>
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
       <div class="col-lg-6 col-md-8">
-        <h5 class="text-uppercase">Contact Us </h5>
+        <h5 class="text-uppercase">Contact Us</h5>
          <p>
-          <i class="fa fa-envelope"></i>
+          <MDBIcon icon="envelope" size="lg" style="margin-right: 5px;" />
           <a href="#">gocoretourplan@gmail.com</a> 
-            <i class="fa fa-phone-square"></i>
-            <a href="#">+94 1122334</a>
+          <MDBIcon icon="phone-square" size="lg" style="margin-left: 5px; margin-right: 5px;" />
+          <a href="#">+94 1122334</a>
           </p>
       </div>
       <!--Grid column-->
@@ -45,9 +49,19 @@
 </template>
 
 <script>
+import {
+  MDBBtn,
+  MDBIcon,
+} from "mdb-vue-ui-kit";
+
 export default {
-    name:'footerBar'
-}
+    name:'footerBar',
+    components: {
+    MDBBtn,
+    MDBIcon,
+  } 
+};
+
 </script>
 
 <style scoped>
@@ -69,4 +83,7 @@ export default {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 15px;
 }
+
+
+
 </style>

@@ -14,11 +14,10 @@ class guide_view_Prof{
                     data.map(post =>({
                         ...post,
                         user_role: post.user_role,
-                        guidefname: post.guidefname,
-                        guidenic: post.guidenic,
-                        guideemail: post.guideemail,
-                        guidephone: post.guidephone,
-                        guideuname: post.guideuname,
+                        name: post.name,
+                        nic: post.nic,
+                        email: post.email,
+                        contact_no: post.contact_no,
                     }))
                 );
             }catch(err){

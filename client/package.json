@@ -7,16 +7,19 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.2",
+    "@googlemaps/js-api-loader": "^1.14.3",
+    "@popperjs/core": "^2.11.6",
     "axios": "^0.27.2",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.2",
+    "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
-    "firebase": "^9.9.4",
+    "firebase": "^9.12.1",
     "mdb-vue-ui-kit": "^2.0.0",
     "popper.js": "^1.16.1",
     "vue": "^3.2.13",
+    "vue-chartkick": "^1.1.0",
     "vue-router": "^4.1.4"
   },
   "devDependencies": {
@@ -26,7 +29,10 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-browser-geolocation": "^1.8.0",
+    "vue2-google-maps": "^0.10.7",
+    "webpack-cli": "^4.10.0"
   },
   "eslintConfig": {
     "root": true,

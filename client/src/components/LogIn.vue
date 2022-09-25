@@ -10,19 +10,25 @@
       <form action="" class="login-form p-4">
         <h3>Sign In</h3>
         
-        <label for="username">Username</label><br>
-        <input type="text" required placeholder="Userame" class="inputstyle"> <br><br>
+        <label for="username">Email</label><br>
+        <input type="email" required placeholder="Email" class="inputstyle"> <br><br>
         <label for="password">Password</label><br>
         <input type="password" required placeholder="Password" class="inputstyle">
         <p class="d-flex justify-content-end">forgot password?</p>
-        <a href="/dashboardPage.vue"><button type="button" class="btn newbtn btn-primary btn-lg">Sign In</button></a>
+        <a href="/dashboardPageTest.vue"><button type="button" class="btn newbtn btn-primary btn-lg">Sign In</button></a>
+        <br><br><br><br>
+        <p>Login For Admins: <a href="/AdminLogin.vue"><button type="button" class="btn newbtn2 btn-primary btn-lg">Log In</button></a></p>
+        
+      <!-- <a href="./LogIn.vue"><button @click="login()" class="btn newbtn btn-primary btn-lg" id="loginbtn">Log In</button></a> -->
       </form>
     </div>
     <div class="col-sm p-4">
       <h1 id="heading2">Get GoCore Mobile App for a perfect experience</h1><br>
       <img src="../assets/iPhone.png" alt="gocore mobile app">
     </div>
+    
   </div>
+  
    <hr>
 </div>
 <!-- footer -->
@@ -32,11 +38,35 @@
 <script>
 import navbar from "./topNavbar.vue"
 import footerbar from "./footerBar.vue"
- 
+
+
 export default{
   components:{
     navbar,
     footerbar
+  },
+  data(){
+    return {
+      email: "",
+      password: ""
+    };
+  },
+
+  methods: {
+    login: function(){
+      
+      if(this.email == "denuka22@gmail.com" && this.password == "Denu@1"){
+        // window.location.replace("http://localhost:8080/dashboardPage.vue");
+        
+        this.$router.push({ 
+          name: 'login', 
+          query: { redirect: './dashboardPage.vue' } });
+      }
+     
+      else{
+        alert("err");
+      }
+    }
   }
 }
 </script>
@@ -81,6 +111,18 @@ export default{
   padding-right: 30px;
 }
 .newbtn:hover{
+  background-color:hsl(198, 72%, 46%);
+  border-color:hsl(198, 72%, 46%);
+}
+.newbtn2{
+  background-color: #eb830b;
+  border-color: #e0af0d;
+  border-style: solid;
+  border-radius: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.newbtn2:hover{
   background-color:hsl(198, 72%, 46%);
   border-color:hsl(198, 72%, 46%);
 }

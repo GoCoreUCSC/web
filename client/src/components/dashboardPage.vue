@@ -12,7 +12,7 @@
     <div class="row">
       <div class="flex-row-reverse">
         <Modal @close="toggleModal" :modalActive="modalActive">
-          <div class="modal-content">
+          <div class="modal-content" id="modal-content">
 
             <form action="" class="login-form">
            <div class="p-3">
@@ -22,26 +22,34 @@
                      
                 <input type="text" v-model="Duration" placeholder="Duration">
          
-                  <input type="text" v-model="Activities" placeholder="Activities">
+                  <input type="text" v-model="Activities" placeholder="Activities"><br>
                 
-                    <!-- <input class="form-control-sm" type="file" multiple v-on:change="uploadFile" id="formFile"><br>
-                     <small>Add a cover photo for the tour plan</small> -->
-                
-                
+                    <!-- <input class="form-control-sm" type="file" multiple v-on:change="uploadFile" id="formFile"><br> -->
+                     <small>Add a cover photo for the tour plan</small>
+                     <div>
+                        <input type="file" @change="previewImage" accept="image/" />
+                      </div>
+
+                      <div>
+                        <img class="preview" v-bind:src="picture" /><br />
+                        <button @click="onUpload">Upload</button>
+                      </div>
+                          
               
                    <input type="text" v-model="startingCity" placeholder="Enter Starting City">
 
-                   <input type="text" v-model="nextDestination" placeholder="Enter Next Destination">
+                   <input type="text" v-model="destName" placeholder="Enter Next Destination">
 
-                   <input type="text" v-model="transportMethod" placeholder="Transportation Method">
+                   <input type="text" v-model="transport" placeholder="Transportation Method">
                
-                   <input type="text" v-model="Accomodation" placeholder="Accomodation">
+                   <input type="text" v-model="stay" placeholder="Accomodation">
                </div>
 
               </div>
+        
 
               <!--Dynamic input fields to add more destinations-->
-              <!-- <div class="p-3" v-for="(k,index) in destination" :key="index">
+              <div class="p-3" v-for="(k,index) in destination" :key="index">
                 
                 
                 <div class="form-group p-1">
@@ -54,12 +62,12 @@
                 <div class="form-group p-1">
                    <input type="text" placeholder="Accomodation" v-model="k.Accomodation">
                 </div>
-              </div> -->
+              </div>
               <!-- Controls to add or remove fields-->
-              <!-- <div class="p-2">
+              <div class="p-2">
                 <a href="#" id="add-destination" @click="add" class="controls"><i class="fa-solid fa-plus"></i>Add Destination</a>
                 <a href="#" id="remove-destination" @click="remove(index)" class="controls"><i class="fa-solid fa-minus"></i>Remove Destination</a>
-              </div> -->
+              </div>
               
                  
              <div class="p-4">
@@ -68,8 +76,8 @@
               </div> 
               
             </form>
-
           </div>
+
         </Modal>
         <div class="d-flex flex-row-reverse ">
            <button type="button" class="btn newbtn btn-primary btn-lg" @click="toggleModal">
@@ -87,33 +95,6 @@
         <div class="card-deck p-5">
             <div class="d-flex flex-fill">
 
-                <!-- <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/beach.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <p class="card-text">Galle <br> Duration 3 days</p> 
-                    </div>
-                </div>
-
-                <div class="card cardstyle" style="width: 18rem;" to="./viewPlan">
-                    <a href="./viewPlan.vue" style="color:white"><img class="card-img" src="../assets/nature.jpg" alt="Card image cap"> </a>
-                    <div class="card-body">
-                    <p class="card-text">Ella Rock <br> Duration 4 days</p> 
-                    </div>
-                </div>
-
-                <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img" src="../assets/camping.jpg" alt="Card image cap"> 
-                    <div class="card-body">
-                    <p class="card-text">Bible Rock <br> Duration 3 days</p> 
-                    </div>
-                </div> -->
-
-                <!-- <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/beach.jpg" alt="Card image cap"> 
-                    <div class="card-body">
-                    <p class="card-text">Trimcomalee<br> Duration 3 days</p> 
-                    </div>
-                </div> -->
 
             </div>
 
@@ -121,48 +102,6 @@
         
     </div>
 
-    <div class="row">
-        <div class="card-deck p-5">
-            <div class="d-flex flex-fill">
-
-                <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/beach.jpg" alt="Card image cap"> <!-- Photo by Oliver Sjöström: https://www.pexels.com/photo/person-standing-on-dirt-surrounded-by-coconut-trees-1005417/ -->
-                    <div class="card-body"
-                    v-for="(post,index) in posts"
-                    v-bind:item="post"
-                    v-bind:index="index"
-                    v-bind:key="post.id"
-                    >
-                    <p class="card-text">Galle <br> {{post.text}} Duration 3 days</p> 
-                    </div>
-                </div>
-
-                <!-- <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img" src="../assets/nature.jpg" alt="Card image cap"> 
-                    <div class="card-body">
-                    <p class="card-text">Ella Rock <br> Duration 3 days</p> 
-                    </div>
-                </div>
-
-                <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img" src="../assets/camping.jpg" alt="Card image cap"> 
-                    <div class="card-body">
-                    <p class="card-text">Bible Rock <br> Duration 3 days</p> 
-                    </div>
-                </div>
-
-                <div class="card cardstyle" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/beach.jpg" alt="Card image cap"> 
-                    <div class="card-body">
-                    <p class="card-text">Trincomalee<br> Duration 3 days</p> 
-                    </div>
-                </div> -->
-
-            </div>
-
-        </div>
-        
-    </div>
 <!-- existing tour plans ends-->
 
     <div class="row"> 
@@ -170,12 +109,18 @@
     </div>
     <br>
 </div>
+
+<!-- google map -->
+
+
 <!----content ends----->
 <hr>
 <!-- footer -->
 <footerbar />
 <!-- footer ends-->
 </template>
+
+
 <script>
 //import footerbar from "./footerBar.vue"
 import Modal from "@/components/modalPopup.vue";
@@ -186,17 +131,39 @@ import { collapsed, toggleSidebar } from './state'
 import usernav from "./userNav.vue"
 import guide_add_plan from '../guide_add_plan';
 import guide_added_plans from '../guide_added_plans';
+import Map from '../../node_modules/vue2-google-maps/dist/components/map.vue';
+
+// import { getStorage, ref1, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { initializeApp } from "firebase/app";
+
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBuavlOfALy5q7PejkdQCj9r00AimU4-w0",
+//   authDomain: "gocore-6873c.firebaseapp.com",
+//   projectId: "gocore-6873c",
+//   storageBucket: "gocore-6873c.appspot.com",
+//   messagingSenderId: "1087670929534",
+//   appId: "1:1087670929534:web:9bd2c04e15dacd10ac302f",
+//   measurementId: "G-GT1883S0BG",
+// };
+
+// Initialize Firebase
+// initializeApp(firebaseConfig);
+// const storage = getStorage();
+// console.log(storage);
+
 
 export default{
   // eslint-disable-next-line vue/multi-word-component-names
   name:"dashboardPage",
   components:{
-   
     //footerbar,
     Modal,
     sidenav,
-    usernav
-  },
+    usernav,
+    // eslint-disable-next-line vue/no-unused-components
+    Map
+},
   setup(){
     const modalActive = ref(false);
     const toggleModal = () => {
@@ -204,22 +171,28 @@ export default{
     };
     return{sidebarWidth},{ collapsed, toggleSidebar },{ modalActive, toggleModal }
   },
+
+
   //define data
 data: function(){
   return{
-    posts: [],
-    destination:[
-      {
-        name:'',
-        transport:'',
-        stay:''
-      }
-    ]
+    Title: "",
+    Duration: "",
+    Activities: "",
+    startingCity: "",
+
+    imageData: null,
+    picture: null,
+    uploadValue: 0,
+   
   }
 },
-async created(){
+
+  async tourList(){
+
+
     try{
-      this.posts = await guide_added_plans.getguideAddedPlans();   //class name.method in the PostService.js file
+      this.guide_tour_List = await guide_added_plans.getguideAddedPlans();   //class name.method in the PostService.js file
     }
     catch(err){
       this.error = err.message;
@@ -229,7 +202,7 @@ async created(){
 methods:{
   add:function(){
     this.destination.push({
-      name:'',
+      destName:'',
       transport:'',
       stay:''
     })
@@ -238,16 +211,52 @@ methods:{
     this.destination.splice(index,1)
   },
 
-  async guideAddPlan(){
-      await guide_add_plan.insertGuidePlan(
-        this.Title,this.Duration,this.startingCity,this.Activities,this.nextDestination,this.transportMethod,this.Accomodation);
+  guideAddPlan(){
 
-    }
+    // var destine = this.destination.push({});
+      guide_add_plan.insertGuidePlan(
+        this.Title,
+        this.Duration,
+        this.startingCity,
+        this.Activities,
+        this.destination.push({})
+        
+        );
+
+    },
+
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.picture = null;
+      this.imageData = event.target.files[0];
+    },
+
+    // onUpload() {
+    //   this.picture = null;
+
+    //   const storageRefCover = ref1(storage, `${this.imageData.name}`);
+
+    //   // 'file' comes from the Blob or File API
+    //   uploadBytes(storageRefCover, this.imageData).then((snapshot) => {
+    //     console.log("Uploaded Successfully!");
+    //     getDownloadURL(snapshot.ref1).then((url) => {
+    //       this.picture = url;
+    //       console.log(url);
+    //     });
+    //   });
+
+
+      
+    // },
+    
 },   
 
 }
 </script>
 <style scoped>
+.img.preview {
+  width: 200px;
+}
 .newbtn{
   background-color: #0084BD;
   border-color: #0084BD;
